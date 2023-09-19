@@ -1,0 +1,25 @@
+.compare-flex{
+    display: flex;
+    align-items: center;
+    column-gap: 2rem;
+
+}
+
+.sec{
+    display: flex;
+    align-items: center;
+    column-gap: 2rem;
+    min-width: 15rem;
+}
+
+.sec p{
+    margin-top: -28px;
+    color: var(--white);
+}
+
+
+@media screen and (max-width:800px){
+    .compare-flex{
+        flex-direction: column;
+    }
+}

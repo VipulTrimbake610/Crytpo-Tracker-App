@@ -1,0 +1,138 @@
+
+
+.grid-container{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    background-color: var(--darkgrey);
+    height: 300px;
+    border-radius: 1.2rem;
+    border: 3px solid var(--darkgrey);
+    padding: 1.5rem;
+    row-gap: 2rem;
+    cursor: pointer;
+}
+.active-red:hover{
+    border: 3px solid var(--red);
+    transition: all 0.1s;
+}
+.active-green:hover{
+    border: 3px solid var(--green);
+    transition: all 0.1s;
+}
+.info-flex{
+    width: 100%;
+    /* height: 5rem; */
+    /* border: 1px solid blue; */
+    display: flex;
+    justify-content: space-between;
+
+}
+.info-flex img{
+    width: 3rem;
+    height: 3rem;
+}
+ 
+.name{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.1rem;
+}
+.name-symbol{
+    color: var(--white);
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+.name-id{
+    color: var(--grey);
+    text-transform: capitalize;
+    font-size: 0.9rem;
+}
+.watchStar{
+    border: 2px solid var(--green);
+    border-radius: 49px;
+    width: 2.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.watchCompo{
+    color: var(--green);
+}
+
+.watchRed{
+    border-color: var(--red);
+}
+.watchCompoRed{
+    color: var(--red);
+}
+
+/* Chip Styling */
+.chip-flex{
+    display: flex;
+    column-gap: 1rem;
+    color: var(--green);
+    
+}
+
+.chip-num{
+    border: 2px solid var(--green);
+    padding: 0.5rem 2rem;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    min-width: 132px;
+}
+.chip-num:hover{
+    /* border: none; */
+    transition: all 0.3s;
+    background-color: var(--green);
+    color: var(--white);
+}
+
+.chip-symb{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid;
+    border-radius: 5rem;
+    height: 2.7rem;
+    width: 2.7rem;
+    cursor: pointer;
+}
+.chip-symb:hover{
+    border: none;
+    background-color: var(--green);
+    color: var(--white);
+}
+.chip-red{
+    border-color: var(--red);
+    color: var(--red);
+}
+.chip-red:hover{
+    transition: all 0.5s;
+    /* border: none; */
+    background-color: var(--red);
+    color: var(--white);
+}
+
+.extra-info{
+    display: flex;
+    flex-direction: column;
+    margin-top: -5px;
+}
+
+.extra-info p{
+    font-size: 0.9rem;
+}
+
+@media screen and (max-width:500px) {
+    .extra-info{
+        row-gap: 0.5rem;
+    }
+    .extra-info p{
+        font-size: 13px;
+    }
+}

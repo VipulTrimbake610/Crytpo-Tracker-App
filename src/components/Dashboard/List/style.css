@@ -1,0 +1,193 @@
+td{
+    padding: 1.2rem 0;
+}
+.list-info-flex{
+    
+    text-align: right;
+padding-right: 30px;
+    width: 8%;
+
+}
+.list-container:hover{
+    background-color: var(--darkgrey);
+    transition: all 0.3s;
+}
+
+.list-info-flex img{
+    width: 3rem;
+    height: 3rem;
+}
+
+.list-name{
+    text-align: left;
+}
+.list-name-symbol{
+    color: var(--white);
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+.list-name-id{
+    color: var(--grey);
+    text-transform: capitalize;
+    font-size: 0.9rem;
+    
+}
+.list-chip-flex{
+    width: 8%;
+}
+
+.list-chip-num{
+    border: 2px solid var(--green);
+    padding: 0.5rem 2rem;
+    text-align: center;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    min-width: 70px;
+
+}
+.list-chip-num:hover{
+    /* border: none; */
+    transition: all 0.3s;
+    background-color: var(--green);
+    color: var(--white);
+}
+
+.list-chip-symb{
+    color: var(--green);
+    border: 2px solid var(--green);
+    border-radius: 5rem;
+    height: 2.7rem;
+    width: 2.7rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    text-align: left;
+}
+.list-chip-symb:hover{
+    border: none;
+    background-color: var(--green);
+    color: var(--white);
+}
+
+
+.list-chip-red{
+    color: var(--red);
+    border: 2px solid var(--red);
+    border-radius: 5rem;
+    height: 2.7rem;
+    width: 2.7rem;
+    cursor: pointer;
+}
+.list-chip-red:hover{
+    transition: all 0.5s;
+    /* border: none; */
+    background-color: var(--red);
+    color: var(--white);
+}
+
+td h3{
+    text-align: left;
+}
+
+.red-chip{
+    width: 100%;    
+    height: auto;
+}
+
+.list-extra-info{
+
+}
+.list-extra-info p{
+    color: var(--white);
+    font-size: 1.2rem;
+}
+.desktop-view{
+    display: table-cell;
+}
+.mobile-view{
+    display: none;
+}
+
+.list-td-left{
+    text-align: left;
+}
+
+
+@media screen and (max-width:1000px) {
+    
+.list-extra-info p{
+    width: 10rem;
+    font-size: 1rem;
+}
+ td h3{
+    font-size: 1rem;
+ }   
+ .list-chip-symb{
+    width: 2rem;
+    height: 2rem;
+ } 
+ .list-chip-num{
+    font-size: 0.8rem;
+    padding-left: 0;
+    padding-right: 0;
+ }
+ .list-name-symbol{
+    font-size: 0.8rem;
+ }
+ .list-info-flex img{
+    width: 2rem;
+    height: 2rem;
+ }
+
+ .desktop-view{
+    display: none;
+ }
+ .mobile-view{
+    display: table-cell;
+ }
+}
+
+@media  screen and (max-width:800px) {
+    
+    td{
+        text-align: center ;
+        width: 18% ;
+    }
+    .list-info-flex{
+
+        width: 5%;
+        padding: 0 10px;
+    }
+    .list-chip-symb{
+        display: none;
+    }
+ 
+    .list-name-symbol {
+        font-size: 0.5rem;
+    }
+    .list-name-id {
+        color: var(--grey);
+        text-transform: capitalize;
+        font-size: 0.5rem;
+    }
+
+    .list-chip-num {
+        font-size: 0.5rem;
+        padding-left: 0;
+        padding-right: 0;
+        min-width: 3rem;
+        border: none;
+    }
+    td h3{
+        font-size: 0.5rem;
+    }
+
+.list-extra-info p {
+    width: 6rem;
+    font-size: 0.5rem;
+}
+}

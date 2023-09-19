@@ -1,0 +1,28 @@
+.flex-grid{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+table,td{
+    border-collapse: collapse;
+}
+.list-table
+{
+    width: 100%;
+}
+
+td{
+    /* border: 1px solid red; */
+    width: 8%;
+    text-align: center;
+}
+
+
+@media screen and (max-width:800px) {
+    table{
+        width: 100%;
+    }
+}

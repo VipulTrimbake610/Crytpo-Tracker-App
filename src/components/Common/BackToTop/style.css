@@ -1,0 +1,28 @@
+.backToTop{
+position: fixed;
+bottom: 1.5rem;
+right: 1.5rem;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 4rem;
+height: 4rem;
+border: 2px solid var(--blue);
+color: var(--blue);
+border-radius: 50%;
+margin: 1.5rem;
+cursor: pointer;
+}
+.backToTop:hover{
+    background-color: var(--blue);
+    color: var(--white);
+    
+}
+
+
+@media screen and (max-width:800px) {
+    .backToTop{
+        bottom: 4.5rem;
+        right: .5rem;
+    }
+}

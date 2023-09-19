@@ -1,0 +1,21 @@
+
+.coin-info{
+    padding: 2rem;
+    cursor: pointer;
+    background-color: var(--darkgrey);
+    width: 95%;
+    margin: auto;
+    border-radius: 1rem;
+}
+.coin-info-desc{
+    margin-top: 1rem;
+    color: var(--white);
+}
+.coin-info-desc a{
+    text-decoration: underline;
+    color: var(--white);
+}
+.coin-info-desc p{
+    color:  var(--grey);
+    margin-top: 0.3rem;
+}

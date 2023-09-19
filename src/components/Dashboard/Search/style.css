@@ -1,0 +1,22 @@
+.search-flex{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 80%;
+    background-color: var(--darkgrey);
+    padding: 1rem;
+    column-gap: 1rem;
+    margin: 1rem auto;
+    border-radius: 2rem;
+    color: var(--grey);
+}
+
+.search-flex input{
+    background-color: var(--darkgrey);
+    outline: none;
+    border: none;
+    color: var(--grey);
+    font-size: 1.2rem;
+    width: 95%;
+    font-weight: 500;
+}
