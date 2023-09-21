@@ -3,8 +3,8 @@ import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@mui/icons-material/TrendingDownRounded';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
-import React, { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom';
+import React from 'react'
+import { NavLink } from 'react-router-dom';
 
 const Grid = ({coin, handleWatchlist, watchStatus}) => {
 

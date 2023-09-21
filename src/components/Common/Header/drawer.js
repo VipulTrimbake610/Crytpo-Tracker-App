@@ -25,17 +25,13 @@ export default function TemporaryDrawer() {
             onClose={()=>setState(false)}
           >
            <div className="drawer-div">
-                <NavLink to="/">
-                    <p className="link">Home</p>
+                <NavLink to="/">Home
                 </NavLink>
-                <NavLink to="/compare">
-                    <p className="link">Compare</p>
+                <NavLink to="/compare">Compare
                 </NavLink>
-                <NavLink to="/watchlist">
-                    <p className="link">Watchlist</p>
+                <NavLink to="/watchlist">Watchlist
                 </NavLink>
-                <NavLink to="/dashboard">
-                    <p className="link">Dashboard</p>
+                <NavLink to="/dashboard">Dashboard
                 </NavLink>
             </div>
           </Drawer>

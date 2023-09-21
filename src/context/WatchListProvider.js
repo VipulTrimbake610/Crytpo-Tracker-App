@@ -16,7 +16,7 @@ const WatchListProvider = ({children}) => {
             let index = ar.indexOf(coinId);
             ar.splice(index,1);
             
-            console.log(ar);
+            
             localStorage.setItem("watchData",JSON.stringify(ar));
             
             let myArr = [...watchCoins];

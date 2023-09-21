@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import Header from '../components/Common/Header';
@@ -13,6 +13,7 @@ import TogglePriceType from '../components/Coin/ChartType';
 import LineChart from '../components/Coin/LineChart';
 import SelectDays from '../components/Coin/SelectDays';
 import { settingChartData } from '../functions/setingChartData';
+import Footer from '../components/Common/Footer';
 
 const CoinPage = () => {
     let {id} = useParams();
@@ -26,16 +27,15 @@ const CoinPage = () => {
     useEffect(()=>{
         if(id){
             getData();
-      
         }
     },[id])
 
     async function getData(){
         const data = await getCoinData(id);
         if(data){
+            // getCoinData is a Function where as coinData,setCoinData is a useState
             ConvertObject(setCoinData,data);
             const prices = await getCoinPrice(id, days,priceType);
-            // console.log(prices);
             if(prices.length>0){
                 settingChartData(setChartData,prices);
             }
@@ -56,15 +56,15 @@ const CoinPage = () => {
 
 
       const handlePriceType = async(event,newType) => {
-        if(newType != priceType){
-            setLoadingStatus(true);
-            const prices = await getCoinPrice(id, days,newType);
-            if(prices.length>0){
-                settingChartData(setChartData,prices);
-                setPriceType(newType);
+            if(newType){
+                setLoadingStatus(true);
+                const prices = await getCoinPrice(id, days,newType);
+                if(prices.length>0){
+                    settingChartData(setChartData,prices);
+                    setPriceType(newType);
+                }
+                setLoadingStatus(false)
             }
-            setLoadingStatus(false)
-        }
       };
   return (
     <>
@@ -84,9 +84,10 @@ const CoinPage = () => {
 
         <br />
         <CoinInfo heading={coinData.name} desc={coinData.desc}/>
+        <br />
         </>
     }
-    
+    <Footer/>
     </>
   )
 }

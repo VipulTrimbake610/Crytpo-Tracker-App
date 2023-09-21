@@ -10,6 +10,7 @@ import BackToTop from '../Common/BackToTop';
 import { getHundredCoins } from '../../functions/getHundredCoins';
 
 
+
 const Dashboard = () => {
   
   let [search, setSearch] = useState("");
@@ -22,14 +23,6 @@ const Dashboard = () => {
   useEffect(()=>{
     getData();
   },[])
-  const handlePageChange = (event, value) => {
-
-    var previousPage = (value-1) * 10;
-    setPaginatedCoins(coins.slice(previousPage,previousPage+10))
-    setPage(value)
-
-  }
-
   async function getData(){
     setLoadingStatus(true)
     const myCoins = await getHundredCoins();
@@ -38,6 +31,14 @@ const Dashboard = () => {
     setPaginatedCoins(myCoins.slice(0,10));
     setLoadingStatus(false);
   }
+  const handlePageChange = (event, value) => {
+
+    var previousPage = (value-1) * 10;
+    setPaginatedCoins(coins.slice(previousPage,previousPage+10))
+    setPage(value)
+
+  }
+
   let filteredCoins = (coins) ? coins.filter((e) => e.name.toLowerCase().includes(search.toLowerCase()) || e.id.toLowerCase().includes(search.toLowerCase()) || e.symbol.toLowerCase().includes(search.toLowerCase())) : coins;
 
 
@@ -57,7 +58,6 @@ const Dashboard = () => {
         !search &&
         <PaginationComponent page={page} handlePageChange={handlePageChange} />
       }
-      
     </>
   )
 }

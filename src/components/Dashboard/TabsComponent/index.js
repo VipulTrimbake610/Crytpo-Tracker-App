@@ -8,8 +8,6 @@ import './style.css'
 import Grid from '../Grid';
 import List from '../List';
 import { NavLink } from 'react-router-dom';
-
-import { useState } from 'react';
 import WatchListContext from '../../../context/WatchListContext';
 
 const TabsComponent = ({coins}) => {
@@ -67,9 +65,18 @@ const style = {
         <NavLink to={`/coin/${coins.id}`}>
           <table className='list-table'>
                 {
-                  coins && coins.map((coin,i)=>(
-                      <List key={i} coin={coin} />
-                  ))
+                  coins && coins.map((coin,i)=>{
+                    if(watchData.length>0){
+                      for(let p=0;p<watchData.length;p++){
+                         if(watchData[p] == coin.id){
+                           return <List key={i} coin={coin} handleWatchlist={handleWatchlist} watchStatus={true}/> 
+                         }
+                        }
+                        return <List key={i} coin={coin} handleWatchlist={handleWatchlist} watchStatus={false}/> 
+                    }else{
+                      return <List key={i} coin={coin} handleWatchlist={handleWatchlist} watchStatus={false}/>
+                    }
+                })
                 }
           </table>
           </NavLink>

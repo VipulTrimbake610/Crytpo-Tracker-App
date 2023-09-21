@@ -1,10 +1,13 @@
 
 import React from "react";
+import './style.css';
 
 const Footer = ()=>{
     return (
         <>
-        <h1>This is Footer</h1>
+        <div className="footer">
+            CryptoTracker.
+        </div>
         </>
     );
 } 

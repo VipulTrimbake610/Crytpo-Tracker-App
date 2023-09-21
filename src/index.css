@@ -99,6 +99,9 @@ img {
     margin-top: 1rem;
   }
 
+  .watchMain{
+    height: 48vh;
+  }
 
   @media screen and (max-width:1000px) {
   

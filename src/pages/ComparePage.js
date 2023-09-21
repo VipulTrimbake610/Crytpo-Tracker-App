@@ -12,11 +12,12 @@ import CoinInfo from '../components/Coin/CoinInfo';
 import LineChart from '../components/Coin/LineChart';
 import { settingChartData } from '../functions/setingChartData';
 import TogglePriceType from '../components/Coin/ChartType';
+import Footer from '../components/Common/Footer';
 
 const ComparePage = () => {
-    let [loadingStatus, setLoadingStatus] = useState(false);
+    let [loadingStatus, setLoadingStatus] = useState(true);
     let [crypto1, setCrypto1] = useState("bitcoin");
-    let [crypto2, setCrypto2] = useState("tether");
+    let [crypto2, setCrypto2] = useState("ethereum");
 
     let [cryptoData1, setCryptoData1] = useState();
     let [cryptoData2, setCryptoData2] = useState();
@@ -24,6 +25,8 @@ const ComparePage = () => {
     let [days, setDays] = useState(30);
     let [chartData, setChartData] = useState();
     let [priceType, setPriceType] = useState('prices');
+
+    
 
     useEffect(() => {
         getData();
@@ -60,39 +63,33 @@ const ComparePage = () => {
     }
 
     const handlePriceType = async(event,newType) => {
-        // if(newType != priceType){
+        if(newType){
             setLoadingStatus(true);
-            setPriceType(newType)
-            console.log("Newtyoe : ",newType);
+            setPriceType(newType);
             const prices1 = await getCoinPrice(crypto1, days, newType);
             const prices2 = await getCoinPrice(crypto2, days, newType);
             settingChartData(setChartData, prices1, prices2,{crypto1:crypto1,crypto2:crypto2})
             setLoadingStatus(false)
-            // }
+            }
         };
-      let mycrypto1,mycrypto2; 
+
     async function handleCoinChange(event, isCoin2) {
         setLoadingStatus(true);
         if (isCoin2) {
             setCrypto2(event.target.value);
-            mycrypto2 = event.target.value;
             const data = await getCoinData(event.target.value);
             ConvertObject(setCryptoData2, data);
+            const prices1 = await getCoinPrice(crypto1, days, priceType);
+            const prices2 = await getCoinPrice(event.target.value, days, priceType);
+            settingChartData(setChartData, prices1, prices2,{crypto1:crypto1,crypto2:event.target.value})
         } else {
             setCrypto1(event.target.value);
-            mycrypto1 = event.target.value;
             const data = await getCoinData(event.target.value);
             ConvertObject(setCryptoData1, data);
+            const prices1 = await getCoinPrice(event.target.value, days, priceType);
+            const prices2 = await getCoinPrice(crypto2, days, priceType);
+            settingChartData(setChartData, prices1, prices2,{crypto1:event.target.value,crypto2:crypto2})
         }
-        const prices1 = await getCoinPrice(crypto1, days, priceType);
-        const prices2 = await getCoinPrice(crypto2, days, priceType);
-        if(!mycrypto1){
-            mycrypto1 = crypto1;
-        }
-        if(!mycrypto2){
-            mycrypto2 = crypto2;
-        }
-        settingChartData(setChartData, prices1, prices2,{crypto1:mycrypto1,crypto2:mycrypto2})
         setLoadingStatus(false)
 
         
@@ -131,8 +128,11 @@ const ComparePage = () => {
                             <div className='makeGray'>
                             <CoinInfo heading={cryptoData2.name} desc={cryptoData2.desc}/>
                             </div>
+                            <br />
+
                             </>  
                         }
+                    <Footer />
                     </>
             }
 

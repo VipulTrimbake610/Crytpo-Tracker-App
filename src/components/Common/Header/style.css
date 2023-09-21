@@ -3,7 +3,6 @@
     position: sticky;
     top: 0;
     z-index: 10;
-    /* left: 0; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,13 +21,13 @@
     gap: 1.7rem;
 }
 
-.link{
+a{
     color: var(--grey);
     font-weight: 600;
     font-size: 1rem;
 }
 
-.link:hover{
+a:hover{
     color: var(--white);
     transition: all 0.3s;
 }
@@ -37,6 +36,9 @@
     display: none;
 }
 
+.active{
+    color: var(--white) !important;
+}
 @media screen and (max-width:800px) {
 
     .logo{

@@ -1,7 +1,6 @@
 // import * as React from 'react';
 import React from 'react';
 import './style.css';
-import { useState } from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
@@ -18,7 +17,8 @@ export default function TogglePriceType({priceType, handlePriceType}) {
       sx={{
         "& .Mui-selected":{
             color:"var(--blue) !important",
-            backgroundColor:"rgba(25, 118, 210, 0.08)"
+            backgroundColor:"rgba(163, 163, 219, 0.2) !important",
+
         },
         borderColor:"var(--blue)",
         "& .MuiToggleButtonGroup-grouped":{

@@ -45,7 +45,7 @@ const Main = () =>{
                 transition={{duration:1.5}}
                 >
                 <NavLink to="/dashboard">
-                    <MyButton text="Dashboard" onClick={()=>console.log("clicked")} outlined={true}/>
+                    <MyButton text="Dashboard" onClick={()=>console.log("clicked")} outlined={false}/>
                 </NavLink>
                 <MyButton text="Share" onClick={handleShare} outlined={true}/>
                 </motion.div>
@@ -65,7 +65,6 @@ const Main = () =>{
                   }}/>
             </div>
         </div>
-
         </>
     )
 }

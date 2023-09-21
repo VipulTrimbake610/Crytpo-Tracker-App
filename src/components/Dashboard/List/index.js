@@ -7,13 +7,15 @@ import './style.css';
 
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@mui/icons-material/TrendingDownRounded';
+import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
+import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
 import { Tooltip } from '@mui/material';
 
 
 import React from 'react'
 import { ConvertNumber } from '../../../functions/ConvertNumber';
 
-const List = ({ coin }) => {
+const List = ({ coin, handleWatchlist, watchStatus }) => {
     return (
 
         <tbody>
@@ -113,7 +115,20 @@ const List = ({ coin }) => {
                         </p>
                     </Tooltip>
                 </td>
-
+                <td>
+                    {
+                        watchStatus &&
+                        <div className={`watchStar ${coin.price_change_percentage_24h > 0 ? "" : "watchRed"}`} onClick={(e) => handleWatchlist(e, coin.id)} >
+                            <GradeRoundedIcon className={`watchCompo ${coin.price_change_percentage_24h > 0 ? "" : "watchCompoRed"}`} />
+                        </div>
+                    }
+                    {
+                        !watchStatus &&
+                        <div className={`watchStar ${coin.price_change_percentage_24h > 0 ? "" : "watchRed"}`} onClick={(e) => handleWatchlist(e, coin.id)} >
+                            <StarBorderRoundedIcon className={`watchCompo ${coin.price_change_percentage_24h > 0 ? "" : "watchCompoRed"}`} />
+                        </div>
+                    }
+                </td>
             </tr>
         </tbody>
     )

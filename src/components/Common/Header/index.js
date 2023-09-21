@@ -11,10 +11,10 @@ import { NavLink } from "react-router-dom";
 import MaterialUISwitch from "./mySwitchCompo";
 
 const Header = () => {
+
+    // Handled Theme Switch 
     function handleTheme(){
         var root = document.documentElement;
-        
-        
         if(root.style.cssText.includes('--white: #111;')){
             root.style.cssText = '--white: #fff; --black: #111; --darkgrey:#1b1b1b;';
         }else if(root.style.cssText.includes('--white: #fff;')){
@@ -26,19 +26,23 @@ const Header = () => {
 
     return (
         <div className="navbar">
+            <NavLink to="/">
             <h1 className="logo">CryptoTracker <span style={{ color: "var(--blue)" }}>.</span></h1>
+            </NavLink>
             <div className="links">
                 
                 <MaterialUISwitch onClick={handleTheme}/>
-                <NavLink to="/">Home</NavLink>
+                <NavLink to="/">
+                    Home
+                </NavLink>
                 <NavLink to="/compare">
-                    <p className="link">Compare</p>
+                    Compare
                 </NavLink>
                 <NavLink to="/watchlist">
-                    <p className="link">Watchlist</p>
+                    WatchList
                 </NavLink>
                 <NavLink to="/dashboard">
-                    <MyButton text="Dashboard" onClick={()=>console.log("Btn Clicked!")} outlined={true}  />
+                    <MyButton text="Dashboard" outlined={false}  />
                 </NavLink>
             </div>
             <div className="mobile-drawer">

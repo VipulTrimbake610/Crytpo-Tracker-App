@@ -116,6 +116,27 @@ td h3{
     text-align: left;
 }
 
+.watchStar{
+    border: 2px solid var(--green);
+    border-radius: 49px;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: auto;
+}
+.watchCompo{
+    color: var(--green);
+}
+
+.watchRed{
+    border-color: var(--red);
+}
+.watchCompoRed{
+    color: var(--red);
+}
 
 @media screen and (max-width:1000px) {
     
