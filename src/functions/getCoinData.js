@@ -5,7 +5,7 @@ export const getCoinData = (id) =>{
     .then((data)=>{
         return data.data;
 })
-    .catch(err=>console.log(err))
+    .catch(err=>err)
 
     return myData;
 }

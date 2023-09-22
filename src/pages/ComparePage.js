@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Header from '../components/Common/Header';
 import SelectCoins from '../components/ComparePage/SelectCoins';
 import SelectDays from '../components/Coin/SelectDays';
@@ -13,6 +13,8 @@ import LineChart from '../components/Coin/LineChart';
 import { settingChartData } from '../functions/setingChartData';
 import TogglePriceType from '../components/Coin/ChartType';
 import Footer from '../components/Common/Footer';
+import WatchListContext from '../context/WatchListContext';
+import { toast } from 'react-toastify';
 
 const ComparePage = () => {
     let [loadingStatus, setLoadingStatus] = useState(true);
@@ -26,7 +28,7 @@ const ComparePage = () => {
     let [chartData, setChartData] = useState();
     let [priceType, setPriceType] = useState('prices');
 
-    
+    let {watchData, handleWatchlist} = useContext(WatchListContext);
 
     useEffect(() => {
         getData();
@@ -36,21 +38,22 @@ const ComparePage = () => {
         setLoadingStatus(true)
         const data1 = await getCoinData(crypto1);
         const data2 = await getCoinData(crypto2);
-        if (data1) {
+        
+        if (!data1.message && !data2.message) {
             ConvertObject(setCryptoData1, data1);
-        }
-        if (data2) {
             ConvertObject(setCryptoData2, data2);
-        }
-        if (data1 && data2) {
             const prices1 = await getCoinPrice(crypto1, days, priceType);
             const prices2 = await getCoinPrice(crypto2, days, priceType);
             if (prices1.length > 0 && prices2.length > 0) {
                 settingChartData(setChartData, prices1, prices2,{crypto1:crypto1,crypto2:crypto2})
+                setLoadingStatus(false);
+            }else{
+                toast.error((prices1.message)?prices1.message:prices2.message);
             }
+        }else{
+            toast.error((data1.message)?data1.message:data2.message);
         }
 
-        setLoadingStatus(false);
     }
 
     async function handleDaysChange(event) {
@@ -58,8 +61,12 @@ const ComparePage = () => {
         setDays(event.target.value)
         const prices1 = await getCoinPrice(crypto1, event.target.value, priceType);
         const prices2 = await getCoinPrice(crypto2, event.target.value, priceType);
-        settingChartData(setChartData, prices1, prices2,{crypto1:crypto1,crypto2:crypto2})
-        setLoadingStatus(false)
+        if (prices1.length > 0 && prices2.length > 0) {
+            settingChartData(setChartData, prices1, prices2,{crypto1:crypto1,crypto2:crypto2})
+            setLoadingStatus(false);
+        }else{
+            toast.error(prices1.message?prices1.message:prices2.message);
+        }
     }
 
     const handlePriceType = async(event,newType) => {
@@ -68,8 +75,14 @@ const ComparePage = () => {
             setPriceType(newType);
             const prices1 = await getCoinPrice(crypto1, days, newType);
             const prices2 = await getCoinPrice(crypto2, days, newType);
-            settingChartData(setChartData, prices1, prices2,{crypto1:crypto1,crypto2:crypto2})
-            setLoadingStatus(false)
+            if (prices1.length > 0 && prices2.length > 0) {
+                settingChartData(setChartData, prices1, prices2,{crypto1:crypto1,crypto2:crypto2})
+                setLoadingStatus(false);
+            }else{
+                toast.error(prices1.message?prices1.message:prices2.message);
+            }
+            }else{
+                toast.error("PriceType is Null");
             }
         };
 
@@ -78,22 +91,51 @@ const ComparePage = () => {
         if (isCoin2) {
             setCrypto2(event.target.value);
             const data = await getCoinData(event.target.value);
-            ConvertObject(setCryptoData2, data);
-            const prices1 = await getCoinPrice(crypto1, days, priceType);
-            const prices2 = await getCoinPrice(event.target.value, days, priceType);
-            settingChartData(setChartData, prices1, prices2,{crypto1:crypto1,crypto2:event.target.value})
+            if(!data.message){
+                ConvertObject(setCryptoData2, data);
+                const prices1 = await getCoinPrice(crypto1, days, priceType);
+                const prices2 = await getCoinPrice(event.target.value, days, priceType);
+                if (prices1.length > 0 && prices2.length > 0) {
+                    settingChartData(setChartData, prices1, prices2,{crypto1:crypto1,crypto2:event.target.value})
+                    setLoadingStatus(false);
+                }else{
+                    toast.error(prices1.message?prices1.message:prices2.message);
+                }
+            }else{
+                toast.error(data.message);
+            }
         } else {
             setCrypto1(event.target.value);
             const data = await getCoinData(event.target.value);
-            ConvertObject(setCryptoData1, data);
-            const prices1 = await getCoinPrice(event.target.value, days, priceType);
-            const prices2 = await getCoinPrice(crypto2, days, priceType);
-            settingChartData(setChartData, prices1, prices2,{crypto1:event.target.value,crypto2:crypto2})
+            if(data.message){
+                toast.error(data.message);
+            }else{
+                ConvertObject(setCryptoData1, data);
+                const prices1 = await getCoinPrice(event.target.value, days, priceType);
+                const prices2 = await getCoinPrice(crypto2, days, priceType);
+                if (prices1.length > 0 && prices2.length > 0) {
+                    settingChartData(setChartData, prices1, prices2,{crypto1:event.target.value,crypto2:crypto2})
+                    setLoadingStatus(false);
+                }else{
+                    toast.error(prices1.message?prices1.message:prices2.message);
+                }
+            }
         }
-        setLoadingStatus(false)
-
-        
     }
+
+    function handleCoinListGrid(coinData){
+        if(watchData.length>0){
+           let mycoin =  watchData.find((e)=>e === coinData.id)
+           if(mycoin){
+                return true;
+           }
+           else{
+            return false;
+           }
+        }else{
+            return false;
+        }
+  }
     return (
         <>
             <Header />
@@ -107,14 +149,10 @@ const ComparePage = () => {
                         {
                             cryptoData1 && cryptoData2 &&
                             <>
-                            <div className='makeGray compare'>
-                                <List coin={cryptoData1}/>
-                            </div>
-                            <br />
-                            <div className='makeGray compare'>
-
-                                <List coin={cryptoData2}/>
-                            </div>
+                            <table>
+                                <List coin={cryptoData1} handleWatchlist={handleWatchlist} watchStatus={handleCoinListGrid(cryptoData1)}/>
+                                <List coin={cryptoData2} handleWatchlist={handleWatchlist} watchStatus={handleCoinListGrid(cryptoData2)}/>
+                            </table>
                             <br />
                             <div className='makeGray lineChart'>
                             <TogglePriceType priceType={priceType} handlePriceType={handlePriceType}/>

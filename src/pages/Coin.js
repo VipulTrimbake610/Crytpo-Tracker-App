@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import Header from '../components/Common/Header';
 import Loader from '../components/Common/Loader';
@@ -14,6 +14,8 @@ import LineChart from '../components/Coin/LineChart';
 import SelectDays from '../components/Coin/SelectDays';
 import { settingChartData } from '../functions/setingChartData';
 import Footer from '../components/Common/Footer';
+import WatchListContext from '../context/WatchListContext';
+import { toast } from 'react-toastify';
 
 const CoinPage = () => {
     let {id} = useParams();
@@ -24,15 +26,23 @@ const CoinPage = () => {
     let [chartData, setChartData] = useState();
     const [priceType, setPriceType] = useState('prices');
 
+    let {watchData, handleWatchlist} = useContext(WatchListContext);
+
     useEffect(()=>{
         if(id){
             getData();
         }
     },[id])
 
+    let count = 0;
     async function getData(){
         const data = await getCoinData(id);
-        if(data){
+        if(data.message){
+            if(count === 0){
+                toast.error(data.message)
+                count  = 1;
+            }
+        }else{
             // getCoinData is a Function where as coinData,setCoinData is a useState
             ConvertObject(setCoinData,data);
             const prices = await getCoinPrice(id, days,priceType);
@@ -50,8 +60,10 @@ const CoinPage = () => {
         const prices = await getCoinPrice(id, event.target.value, priceType);
         if(prices.length>0){
             settingChartData(setChartData,prices);
+            setLoadingStatus(false)
+        }else{
+            toast.error(prices.message);
         }
-        setLoadingStatus(false)
       };
 
 
@@ -62,10 +74,26 @@ const CoinPage = () => {
                 if(prices.length>0){
                     settingChartData(setChartData,prices);
                     setPriceType(newType);
+                    setLoadingStatus(false)
+                }else{
+                    toast.error(prices.message);
                 }
-                setLoadingStatus(false)
             }
       };
+
+      function handleCoinListGrid(){
+            if(watchData.length>0){
+               let mycoin =  watchData.find((e)=>e === coinData.id)
+               if(mycoin){
+                    return true;
+               }
+               else{
+                return false;
+               }
+            }else{
+                return false;
+            }
+      }
   return (
     <>
     <Header />
@@ -73,7 +101,10 @@ const CoinPage = () => {
         loadingStatus?<Loader />:
         <>
         <table className='makeGray'>
-            <List coin={coinData}/>
+            {
+                <List coin={coinData} handleWatchlist={handleWatchlist} watchStatus={handleCoinListGrid()}/>
+                
+            }
         </table>
         <br />
         <div className='makeGray myChart'>

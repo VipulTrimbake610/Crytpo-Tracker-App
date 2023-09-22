@@ -1,23 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import WatchListContext from './WatchListContext'
 
 const WatchListProvider = ({children}) => {
     
+  // WatchData is storing coin ids
   let [watchData, setWatchData] = useState([]);
+
+  // WatchCoins are storing while coin with data
   let [watchCoins, setWatchCoins] = useState([]);
+
+useEffect(()=>{
+  if(localStorage.getItem("watchData")){
+      setWatchData(JSON.parse(localStorage.getItem("watchData")))
+  }
+},[])
 
   async function handleWatchlist(e,coinId){
     e.preventDefault();
-    let flag = false;
+    let flag = false
     watchData.forEach((e)=>{
         if(e == coinId){
             flag = true;
             let ar = [...watchData];
             let index = ar.indexOf(coinId);
             ar.splice(index,1);
-            
-            
             localStorage.setItem("watchData",JSON.stringify(ar));
+            setWatchData(ar);
             
             let myArr = [...watchCoins];
             let myArr1 = myArr.filter((event)=>{
@@ -28,7 +36,6 @@ const WatchListProvider = ({children}) => {
                 }
             })
             setWatchCoins(myArr1);
-            setWatchData(ar);
         }
     })
     if(flag == false){

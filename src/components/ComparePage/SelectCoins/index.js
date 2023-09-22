@@ -3,6 +3,7 @@ import { getHundredCoins } from '../../../functions/getHundredCoins';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import './style.css';
+import { toast } from 'react-toastify';
 
 const SelectCoins = ({crypto1, crypto2, handleCoinChange}) => {
     let [allCoins, setAllCoins] = useState([]);
@@ -28,7 +29,12 @@ const SelectCoins = ({crypto1, crypto2, handleCoinChange}) => {
     },[])
     async function getData(){
         const myCoins = await getHundredCoins();
-        setAllCoins(myCoins);
+        if(myCoins.length){
+
+            setAllCoins(myCoins);
+        }else{
+            toast.error(myCoins.message);
+        }
     }
 
    

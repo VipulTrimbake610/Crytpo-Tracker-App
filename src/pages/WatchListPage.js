@@ -1,38 +1,38 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from '../components/Common/Header';
 import TabsComponent from '../components/Dashboard/TabsComponent';
 import { getHundredCoins } from '../functions/getHundredCoins';
 import WatchListContext from '../context/WatchListContext';
 import MyButton from '../components/Common/Button';
 import { NavLink } from 'react-router-dom';
-import Footer from '../components/Common/Footer';
+import { toast } from 'react-toastify';
 
 const WatchListPage = () => {
+    let { setWatchCoins, watchCoins } = useContext(WatchListContext);
+   
     useEffect(() => {
         getData();
     }, [])
 
-    let [allCoins, setAllCoins] = useState([]);
-    let { setWatchCoins, watchCoins } = useContext(WatchListContext);
 
     async function getData() {
         if (localStorage.getItem("watchData")) {
-
             let mydata = await getHundredCoins();
-            console.log(mydata);
-            setAllCoins([...mydata]);
-
-            let local = JSON.parse(localStorage.getItem("watchData"));
-            console.log("local : ", local);
-            let filteredData = mydata.filter((e) => {
-                for (let i = 0; i < local.length; i++) {
-                    if (local[i] == e.id) {
-                        return true;
+            if(mydata.length){
+                let local = JSON.parse(localStorage.getItem("watchData"));
+                
+                let filteredData = mydata.filter((e) => {
+                    for (let i = 0; i < local.length; i++) {
+                        if (local[i] === e.id) {
+                            return true;
+                        }
                     }
-                }
-                return false;
-            })
-            setWatchCoins(filteredData);
+                    return false;
+                })
+                setWatchCoins(filteredData);
+            }else{
+                toast.error(mydata.message);
+            }
         }
     }
     return (
@@ -59,10 +59,10 @@ const WatchListPage = () => {
                     {
                         watchCoins.length > 0 &&
                         <TabsComponent coins={watchCoins} />
+
                     }
                 </div>
             </>
-            <Footer />
         </>
     )
 }

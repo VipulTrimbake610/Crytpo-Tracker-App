@@ -5,18 +5,21 @@
 // List css
 import './style.css';
 
+import React from 'react'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded';
 import TrendingDownRoundedIcon from '@mui/icons-material/TrendingDownRounded';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
+import { NavLink } from 'react-router-dom';
 import { Tooltip } from '@mui/material';
-
-
-import React from 'react'
+import {toast} from 'react-toastify';
 import { ConvertNumber } from '../../../functions/ConvertNumber';
+
+
 
 const List = ({ coin, handleWatchlist, watchStatus }) => {
     return (
+        <NavLink to={`/coin/${coin.id}`}>
 
         <tbody>
             <tr className='list-container'>
@@ -35,9 +38,9 @@ const List = ({ coin, handleWatchlist, watchStatus }) => {
                 </td>
                 {
                     coin.price_change_percentage_24h > 0 ?
-
+                    
                         <>
-                            <td className='list-td-left'>
+                            <td className='list-td-left  pcp-td'>
 
                                 <Tooltip title="Price-Change-Percentage" placement='top'>
 
@@ -118,19 +121,20 @@ const List = ({ coin, handleWatchlist, watchStatus }) => {
                 <td>
                     {
                         watchStatus &&
-                        <div className={`watchStar ${coin.price_change_percentage_24h > 0 ? "" : "watchRed"}`} onClick={(e) => handleWatchlist(e, coin.id)} >
+                        <div className={`watchStar ${coin.price_change_percentage_24h > 0 ? "" : "watchRed"}`} onClick={(e) =>{toast.success(coin.name+" coin has been removed from the WatchList!");handleWatchlist(e,coin.id)}} >
                             <GradeRoundedIcon className={`watchCompo ${coin.price_change_percentage_24h > 0 ? "" : "watchCompoRed"}`} />
                         </div>
                     }
                     {
                         !watchStatus &&
-                        <div className={`watchStar ${coin.price_change_percentage_24h > 0 ? "" : "watchRed"}`} onClick={(e) => handleWatchlist(e, coin.id)} >
+                        <div className={`watchStar ${coin.price_change_percentage_24h > 0 ? "" : "watchRed"}`} onClick={(e) =>{toast.success(coin.name+" coin has been Added to the WatchList!");handleWatchlist(e,coin.id)}} >
                             <StarBorderRoundedIcon className={`watchCompo ${coin.price_change_percentage_24h > 0 ? "" : "watchCompoRed"}`} />
                         </div>
                     }
                 </td>
             </tr>
         </tbody>
+    </NavLink>
     )
 }
 

@@ -8,6 +8,7 @@ import PaginationComponent from './Pagination';
 import Loader from '../Common/Loader';
 import BackToTop from '../Common/BackToTop';
 import { getHundredCoins } from '../../functions/getHundredCoins';
+import { toast } from 'react-toastify';
 
 
 
@@ -23,13 +24,21 @@ const Dashboard = () => {
   useEffect(()=>{
     getData();
   },[])
+  let count = 0;
   async function getData(){
     setLoadingStatus(true)
     const myCoins = await getHundredCoins();
+    if(myCoins.length){
+      setCoins(myCoins);
+      setPaginatedCoins(myCoins.slice(0,10));
+      setLoadingStatus(false);
+    }else{
+      if(count == 0){
+        toast.error(myCoins.message);
+        count  = 1;
+      }
+    }
     
-    setCoins(myCoins);
-    setPaginatedCoins(myCoins.slice(0,10));
-    setLoadingStatus(false);
   }
   const handlePageChange = (event, value) => {
 

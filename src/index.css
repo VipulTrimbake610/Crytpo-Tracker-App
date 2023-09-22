@@ -28,8 +28,8 @@ body {
 }
 
 ::selection{
-  background-color: var(--blue);
-  color: var(--white);
+  background-color: navy;
+  color: white;
 }
 
 /* width */
@@ -100,7 +100,7 @@ img {
   }
 
   .watchMain{
-    height: 48vh;
+    min-height: 55vh;
   }
 
   @media screen and (max-width:1000px) {

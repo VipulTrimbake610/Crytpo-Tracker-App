@@ -5,6 +5,6 @@ export const getCoinPrice = (id, days, priceType) =>{
             .then((data)=>{
                 return data.data[priceType];
             })
-            .catch((err)=>console.log(err))
+            .catch((err)=>err)
         return myData;
 }
