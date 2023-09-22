@@ -1,6 +1,6 @@
 
 .coin-info{
-    padding: 2rem;
+    padding: 2rem 1rem;
     cursor: pointer;
     background-color: var(--darkgrey);
     width: 95%;
@@ -19,3 +19,4 @@
     color:  var(--grey);
     margin-top: 0.3rem;
 }
+
